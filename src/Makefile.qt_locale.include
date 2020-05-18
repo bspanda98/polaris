@@ -1,0 +1,14 @@
+QT_TS = \
+  qt/locale/polarisnetwork_de.ts \
+  qt/locale/polarisnetwork_en.ts \
+  qt/locale/polarisnetwork_en_US.ts \
+  qt/locale/polarisnetwork_es.ts \
+  qt/locale/polarisnetwork_fr_FR.ts \
+  qt/locale/polarisnetwork_hr_HR.ts \
+  qt/locale/polarisnetwork_it.ts \
+  qt/locale/polarisnetwork_ko_KR.ts \
+  qt/locale/polarisnetwork_nl.ts \
+  qt/locale/polarisnetwork_pl.ts \
+  qt/locale/polarisnetwork_ru.ts \
+  qt/locale/polarisnetwork_tr.ts \
+  qt/locale/polarisnetwork_zh_CN.ts

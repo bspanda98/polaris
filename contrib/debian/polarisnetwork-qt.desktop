@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Name=POLARISNETWORK Core
+Comment=POLARISNETWORK P2P Cryptocurrency
+Comment[fr]=POLARISNETWORK, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=POLARISNETWORK, eşten eşe kriptografik sanal para birimi
+Exec=polarisnetwork-qt %u
+Terminal=false
+Type=Application
+Icon=polarisnetwork128
+MimeType=x-scheme-handler/polarisnetwork;
+Categories=Office;Finance;
+StartupWMClass=polarisnetwork-qt

@@ -1,0 +1,81 @@
+policy_module(polarisnetwork, 1.100.1)
+
+########################################
+#
+# Declarations
+#
+
+type polarisnetwork_t;
+type polarisnetwork_exec_t;
+init_daemon_domain(polarisnetwork_t, polarisnetwork_exec_t)
+
+permissive polarisnetwork_t;
+
+type polarisnetwork_initrc_exec_t;
+init_script_file(polarisnetwork_initrc_exec_t)
+
+type polarisnetwork_conf_t;
+files_type(polarisnetwork_conf_t)
+
+type polarisnetwork_var_lib_t;
+files_type(polarisnetwork_var_lib_t)
+
+type polarisnetwork_var_run_t;
+files_type(polarisnetwork_var_run_t)
+
+type polarisnetwork_port_t;
+corenet_port(polarisnetwork_port_t)
+
+########################################
+#
+# polarisnetwork local policy
+#
+allow polarisnetwork_t self:process { fork };
+
+allow polarisnetwork_t self:fifo_file rw_fifo_file_perms;
+allow polarisnetwork_t self:unix_stream_socket create_stream_socket_perms;
+
+manage_dirs_pattern(polarisnetwork_t, polarisnetwork_conf_t, polarisnetwork_conf_t)
+manage_files_pattern(polarisnetwork_t, polarisnetwork_conf_t, polarisnetwork_conf_t)
+
+manage_dirs_pattern(polarisnetwork_t, polarisnetwork_var_lib_t, polarisnetwork_var_lib_t)
+manage_files_pattern(polarisnetwork_t, polarisnetwork_var_lib_t, polarisnetwork_var_lib_t)
+files_var_lib_filetrans(polarisnetwork_t, polarisnetwork_var_lib_t, { dir file })
+
+manage_dirs_pattern(polarisnetwork_t, polarisnetwork_var_run_t, polarisnetwork_var_run_t)
+manage_files_pattern(polarisnetwork_t, polarisnetwork_var_run_t, polarisnetwork_var_run_t)
+
+sysnet_dns_name_resolve(polarisnetwork_t)
+corenet_all_recvfrom_unlabeled(polarisnetwork_t)
+
+allow polarisnetwork_t self:tcp_socket create_stream_socket_perms;
+corenet_tcp_sendrecv_generic_if(polarisnetwork_t)
+corenet_tcp_sendrecv_generic_node(polarisnetwork_t)
+corenet_tcp_sendrecv_all_ports(polarisnetwork_t)
+corenet_tcp_bind_generic_node(polarisnetwork_t)
+
+gen_require(`
+    type polarisnetwork_port_t;
+')
+allow polarisnetwork_t polarisnetwork_port_t:tcp_socket name_bind;
+
+gen_require(`
+    type polarisnetwork_port_t;
+')
+allow polarisnetwork_t polarisnetwork_port_t:tcp_socket name_connect;
+
+domain_use_interactive_fds(polarisnetwork_t)
+
+files_read_etc_files(polarisnetwork_t)
+
+miscfiles_read_localization(polarisnetwork_t)
+
+sysnet_dns_name_resolve(polarisnetwork_t)
+
+allow polarisnetwork_t polarisnetwork_exec_t:file execute_no_trans;
+allow polarisnetwork_t self:process setsched;
+corecmd_exec_ls(polarisnetwork_t)
+corenet_tcp_connect_http_port(polarisnetwork_t)
+dev_read_urand(polarisnetwork_t)
+fs_getattr_xattr_fs(polarisnetwork_t)
+kernel_read_system_state(polarisnetwork_t)

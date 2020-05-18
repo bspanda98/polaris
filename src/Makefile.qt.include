@@ -1,0 +1,741 @@
+# Copyright (c) 2013-2016 The Bitcoin Core developers
+# Distributed under the MIT software license, see the accompanying
+# file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
+bin_PROGRAMS += qt/polarisnetwork-qt
+EXTRA_LIBRARIES += qt/libbitcoinqt.a
+
+# polarisnetwork qt core #
+include Makefile.qt_locale.include
+
+QT_FORMS_UI = \
+  qt/forms/addressbookpage.ui \
+  qt/forms/askpassphrasedialog.ui \
+  qt/forms/coincontroldialog.ui \
+  qt/forms/editaddressdialog.ui \
+  qt/forms/helpmessagedialog.ui \
+  qt/forms/intro.ui \
+  qt/forms/openuridialog.ui \
+  qt/forms/optionsdialog.ui \
+  qt/forms/rpcconsole.ui \
+  qt/polarisnetwork/forms/loadingdialog.ui \
+  qt/forms/zpolcontroldialog.ui \
+  qt/polarisnetwork/forms/snackbar.ui \
+  qt/polarisnetwork/forms/navmenuwidget.ui \
+  qt/polarisnetwork/forms/lockunlock.ui \
+  qt/polarisnetwork/forms/expandablebutton.ui \
+  qt/polarisnetwork/forms/receivedialog.ui \
+  qt/polarisnetwork/forms/topbar.ui \
+  qt/polarisnetwork/forms/txrow.ui \
+  qt/polarisnetwork/forms/dashboardwidget.ui \
+  qt/polarisnetwork/forms/addresslabelrow.ui \
+  qt/polarisnetwork/forms/contactdropdownrow.ui \
+  qt/polarisnetwork/forms/mninfodialog.ui \
+  qt/polarisnetwork/forms/optionbutton.ui \
+  qt/polarisnetwork/forms/masternodewizarddialog.ui \
+  qt/polarisnetwork/forms/mnrow.ui \
+  qt/polarisnetwork/forms/masternodeswidget.ui \
+  qt/polarisnetwork/forms/myaddressrow.ui \
+  qt/polarisnetwork/forms/csrow.ui \
+  qt/polarisnetwork/forms/sendchangeaddressdialog.ui \
+  qt/polarisnetwork/forms/sendconfirmdialog.ui \
+  qt/polarisnetwork/forms/sendcustomfeedialog.ui \
+  qt/polarisnetwork/forms/sendchangeaddressdialog.ui \
+  qt/polarisnetwork/forms/sendmultirow.ui \
+  qt/polarisnetwork/forms/send.ui \
+  qt/polarisnetwork/forms/addnewaddressdialog.ui \
+  qt/polarisnetwork/forms/addnewcontactdialog.ui \
+  qt/polarisnetwork/forms/requestdialog.ui \
+  qt/polarisnetwork/forms/receivewidget.ui \
+  qt/polarisnetwork/forms/tooltipmenu.ui \
+  qt/polarisnetwork/forms/addresseswidget.ui \
+  qt/polarisnetwork/forms/defaultdialog.ui \
+  qt/polarisnetwork/forms/privacywidget.ui \
+  qt/polarisnetwork/forms/coldstakingwidget.ui \
+  qt/polarisnetwork/settings/forms/settingsbackupwallet.ui \
+  qt/polarisnetwork/settings/forms/settingsexportcsv.ui \
+  qt/polarisnetwork/settings/forms/settingsbittoolwidget.ui \
+  qt/polarisnetwork/settings/forms/settingsconsolewidget.ui \
+  qt/polarisnetwork/settings/forms/settingsdisplayoptionswidget.ui \
+  qt/polarisnetwork/settings/forms/settingsfaqwidget.ui \
+  qt/polarisnetwork/settings/forms/settingsinformationwidget.ui \
+  qt/polarisnetwork/settings/forms/settingsmainoptionswidget.ui \
+  qt/polarisnetwork/settings/forms/settingsmultisenddialog.ui \
+  qt/polarisnetwork/settings/forms/settingsmultisendwidget.ui \
+  qt/polarisnetwork/settings/forms/settingssignmessagewidgets.ui \
+  qt/polarisnetwork/settings/forms/settingswalletoptionswidget.ui \
+  qt/polarisnetwork/settings/forms/settingswalletrepairwidget.ui \
+  qt/polarisnetwork/settings/forms/settingswidget.ui \
+  qt/polarisnetwork/forms/welcomecontentwidget.ui \
+  qt/polarisnetwork/forms/splash.ui
+
+QT_MOC_CPP = \
+  qt/moc_addressbookpage.cpp \
+  qt/moc_addresstablemodel.cpp \
+  qt/moc_askpassphrasedialog.cpp \
+  qt/moc_bantablemodel.cpp \
+  qt/moc_bitcoinaddressvalidator.cpp \
+  qt/moc_bitcoinamountfield.cpp \
+  qt/polarisnetwork/moc_polarisnetworkgui.cpp \
+  qt/moc_bitcoinunits.cpp \
+  qt/moc_clientmodel.cpp \
+  qt/moc_coincontroldialog.cpp \
+  qt/moc_coincontroltreewidget.cpp \
+  qt/moc_csvmodelwriter.cpp \
+  qt/moc_editaddressdialog.cpp \
+  qt/moc_guiutil.cpp \
+  qt/moc_intro.cpp \
+  qt/moc_macdockiconhandler.cpp \
+  qt/moc_macnotificationhandler.cpp \
+  qt/moc_notificator.cpp \
+  qt/moc_openuridialog.cpp \
+  qt/moc_optionsdialog.cpp \
+  qt/moc_optionsmodel.cpp \
+  qt/moc_peertablemodel.cpp \
+  qt/moc_paymentserver.cpp \
+  qt/moc_qvalidatedlineedit.cpp \
+  qt/moc_qvaluecombobox.cpp \
+  qt/moc_recentrequeststablemodel.cpp \
+  qt/moc_rpcconsole.cpp \
+  qt/moc_splashscreen.cpp \
+  qt/moc_trafficgraphwidget.cpp \
+  qt/moc_transactiondesc.cpp \
+  qt/moc_transactionfilterproxy.cpp \
+  qt/moc_transactiontablemodel.cpp \
+  qt/moc_utilitydialog.cpp \
+  qt/moc_walletmodel.cpp \
+  qt/polarisnetwork/moc_loadingdialog.cpp \
+  qt/moc_zpolcontroldialog.cpp \
+  qt/polarisnetwork/moc_pwidget.cpp \
+  qt/polarisnetwork/moc_focuseddialog.cpp \
+  qt/polarisnetwork/moc_snackbar.cpp \
+  qt/polarisnetwork/moc_navmenuwidget.cpp \
+  qt/polarisnetwork/moc_lockunlock.cpp \
+  qt/polarisnetwork/moc_expandablebutton.cpp \
+  qt/polarisnetwork/moc_furabstractlistitemdelegate.cpp \
+  qt/polarisnetwork/moc_receivedialog.cpp \
+  qt/polarisnetwork/moc_pfborderimage.cpp \
+  qt/polarisnetwork/moc_topbar.cpp \
+  qt/polarisnetwork/moc_txrow.cpp \
+  qt/polarisnetwork/moc_dashboardwidget.cpp \
+  qt/polarisnetwork/moc_addresslabelrow.cpp \
+  qt/polarisnetwork/moc_contactdropdownrow.cpp \
+  qt/polarisnetwork/moc_mninfodialog.cpp \
+  qt/polarisnetwork/moc_optionbutton.cpp \
+  qt/polarisnetwork/moc_coldstakingmodel.cpp \
+  qt/polarisnetwork/moc_mnmodel.cpp \
+  qt/polarisnetwork/moc_masternodewizarddialog.cpp \
+  qt/polarisnetwork/moc_mnrow.cpp \
+  qt/polarisnetwork/moc_masternodeswidget.cpp \
+  qt/polarisnetwork/moc_myaddressrow.cpp \
+  qt/polarisnetwork/moc_csrow.cpp \
+  qt/polarisnetwork/moc_contactsdropdown.cpp \
+  qt/polarisnetwork/moc_sendchangeaddressdialog.cpp \
+  qt/polarisnetwork/moc_sendconfirmdialog.cpp \
+  qt/polarisnetwork/moc_sendcustomfeedialog.cpp \
+  qt/polarisnetwork/moc_sendchangeaddressdialog.cpp \
+  qt/polarisnetwork/moc_sendmultirow.cpp \
+  qt/polarisnetwork/moc_send.cpp \
+  qt/polarisnetwork/moc_addnewaddressdialog.cpp \
+  qt/polarisnetwork/moc_addnewcontactdialog.cpp \
+  qt/polarisnetwork/moc_requestdialog.cpp \
+  qt/polarisnetwork/moc_receivewidget.cpp \
+  qt/polarisnetwork/moc_tooltipmenu.cpp \
+  qt/polarisnetwork/moc_addresseswidget.cpp \
+  qt/polarisnetwork/moc_defaultdialog.cpp \
+  qt/polarisnetwork/moc_privacywidget.cpp \
+  qt/polarisnetwork/moc_coldstakingwidget.cpp \
+  qt/polarisnetwork/settings/moc_settingsbackupwallet.cpp \
+  qt/polarisnetwork/settings/moc_settingsexportcsv.cpp \
+  qt/polarisnetwork/settings/moc_settingsbittoolwidget.cpp \
+  qt/polarisnetwork/settings/moc_settingsconsolewidget.cpp \
+  qt/polarisnetwork/settings/moc_settingsdisplayoptionswidget.cpp \
+  qt/polarisnetwork/settings/moc_settingsfaqwidget.cpp \
+  qt/polarisnetwork/settings/moc_settingsinformationwidget.cpp \
+  qt/polarisnetwork/settings/moc_settingsmainoptionswidget.cpp \
+  qt/polarisnetwork/settings/moc_settingsmultisenddialog.cpp \
+  qt/polarisnetwork/settings/moc_settingsmultisendwidget.cpp \
+  qt/polarisnetwork/settings/moc_settingssignmessagewidgets.cpp \
+  qt/polarisnetwork/settings/moc_settingswalletoptionswidget.cpp \
+  qt/polarisnetwork/settings/moc_settingswalletrepairwidget.cpp \
+  qt/polarisnetwork/settings/moc_settingswidget.cpp \
+  qt/polarisnetwork/moc_welcomecontentwidget.cpp \
+  qt/polarisnetwork/moc_splash.cpp
+
+BITCOIN_MM = \
+  qt/macdockiconhandler.mm \
+  qt/macnotificationhandler.mm
+
+QT_MOC = \
+  qt/polarisnetwork.moc \
+  qt/bitcoinamountfield.moc \
+  qt/intro.moc \
+  qt/rpcconsole.moc \
+  qt/polarisnetwork/settings/moc_settingsconsolewidget.cpp
+
+QT_QRC_CPP = qt/qrc_polarisnetwork.cpp
+QT_QRC = qt/polarisnetwork.qrc
+QT_QRC_LOCALE_CPP = qt/qrc_polarisnetwork_locale.cpp
+QT_QRC_LOCALE = qt/polarisnetwork_locale.qrc
+
+PROTOBUF_CC = qt/paymentrequest.pb.cc
+PROTOBUF_H = qt/paymentrequest.pb.h
+PROTOBUF_PROTO = qt/paymentrequest.proto
+
+BITCOIN_QT_H = \
+  qt/addressbookpage.h \
+  qt/addresstablemodel.h \
+  qt/askpassphrasedialog.h \
+  qt/bantablemodel.h \
+  qt/bitcoinaddressvalidator.h \
+  qt/bitcoinamountfield.h \
+  qt/polarisnetwork/polarisnetworkgui.h \
+  qt/bitcoinunits.h \
+  qt/clientmodel.h \
+  qt/coincontroldialog.h \
+  qt/coincontroltreewidget.h \
+  qt/csvmodelwriter.h \
+  qt/editaddressdialog.h \
+  qt/guiconstants.h \
+  qt/guiutil.h \
+  qt/intro.h \
+  qt/macdockiconhandler.h \
+  qt/macnotificationhandler.h \
+  qt/networkstyle.h \
+  qt/notificator.h \
+  qt/openuridialog.h \
+  qt/optionsdialog.h \
+  qt/optionsmodel.h \
+  qt/paymentrequestplus.h \
+  qt/paymentserver.h \
+  qt/peertablemodel.h \
+  qt/platformstyle.h \
+  qt/qvalidatedlineedit.h \
+  qt/qvaluecombobox.h \
+  qt/recentrequeststablemodel.h \
+  qt/rpcconsole.h \
+  qt/splashscreen.h \
+  qt/trafficgraphwidget.h \
+  qt/transactiondesc.h \
+  qt/transactionfilterproxy.h \
+  qt/transactionrecord.h \
+  qt/transactiontablemodel.h \
+  qt/utilitydialog.h \
+  qt/walletmodel.h \
+  qt/walletmodeltransaction.h \
+  qt/polarisnetwork/prunnable.h \
+  qt/polarisnetwork/pfborderimage.h \
+  qt/polarisnetwork/loadingdialog.h \
+  qt/winshutdownmonitor.h \
+  qt/zpolcontroldialog.h \
+  qt/polarisnetwork/pwidget.h \
+  qt/polarisnetwork/focuseddialog.h \
+  qt/polarisnetwork/guitransactionsutils.h \
+  qt/polarisnetwork/snackbar.h \
+  qt/polarisnetwork/navmenuwidget.h \
+  qt/polarisnetwork/lockunlock.h \
+  qt/polarisnetwork/receivedialog.h \
+  qt/polarisnetwork/furlistrow.h \
+  qt/polarisnetwork/furabstractlistitemdelegate.h \
+  qt/polarisnetwork/txviewholder.h \
+  qt/polarisnetwork/qtutils.h \
+  qt/polarisnetwork/expandablebutton.h \
+  qt/polarisnetwork/topbar.h \
+  qt/polarisnetwork/txrow.h \
+  qt/polarisnetwork/addressholder.h \
+  qt/polarisnetwork/addressfilterproxymodel.h \
+  qt/polarisnetwork/dashboardwidget.h \
+  qt/polarisnetwork/addresslabelrow.h \
+  qt/polarisnetwork/contactdropdownrow.h \
+  qt/polarisnetwork/mninfodialog.h \
+  qt/polarisnetwork/optionbutton.h \
+  qt/polarisnetwork/coldstakingmodel.h \
+  qt/polarisnetwork/mnmodel.h \
+  qt/polarisnetwork/masternodewizarddialog.h \
+  qt/polarisnetwork/mnrow.h \
+  qt/polarisnetwork/masternodeswidget.h \
+  qt/polarisnetwork/myaddressrow.h \
+  qt/polarisnetwork/csrow.h \
+  qt/polarisnetwork/contactsdropdown.h \
+  qt/polarisnetwork/sendchangeaddressdialog.h \
+  qt/polarisnetwork/sendconfirmdialog.h \
+  qt/polarisnetwork/sendcustomfeedialog.h \
+  qt/polarisnetwork/sendchangeaddressdialog.h \
+  qt/polarisnetwork/sendmultirow.h \
+  qt/polarisnetwork/send.h \
+  qt/polarisnetwork/addnewaddressdialog.h \
+  qt/polarisnetwork/addnewcontactdialog.h \
+  qt/polarisnetwork/requestdialog.h \
+  qt/polarisnetwork/receivewidget.h \
+  qt/polarisnetwork/tooltipmenu.h \
+  qt/polarisnetwork/addresseswidget.h \
+  qt/polarisnetwork/defaultdialog.h \
+  qt/polarisnetwork/privacywidget.h \
+  qt/polarisnetwork/coldstakingwidget.h \
+  qt/polarisnetwork/settings/settingsbackupwallet.h \
+  qt/polarisnetwork/settings/settingsexportcsv.h \
+  qt/polarisnetwork/settings/settingsbittoolwidget.h \
+  qt/polarisnetwork/settings/settingsconsolewidget.h \
+  qt/polarisnetwork/settings/settingsdisplayoptionswidget.h \
+  qt/polarisnetwork/settings/settingsfaqwidget.h \
+  qt/polarisnetwork/settings/settingsinformationwidget.h \
+  qt/polarisnetwork/settings/settingsmainoptionswidget.h \
+  qt/polarisnetwork/settings/settingsmultisenddialog.h \
+  qt/polarisnetwork/settings/settingsmultisendwidget.h \
+  qt/polarisnetwork/settings/settingssignmessagewidgets.h \
+  qt/polarisnetwork/settings/settingswalletoptionswidget.h \
+  qt/polarisnetwork/settings/settingswalletrepairwidget.h \
+  qt/polarisnetwork/settings/settingswidget.h \
+  qt/polarisnetwork/welcomecontentwidget.h \
+  qt/polarisnetwork/splash.h
+
+RES_ICONS = \
+  qt/res/icons/bitcoin.ico \
+  qt/res/icons/bitcoin.png \
+  qt/res/icons/bitcoin_testnet.ico \
+  qt/res/icons/bitcoin_testnet.png \
+  qt/res/icons/bitcoin_regtest.png \
+  qt/res/icons/lock_closed.png \
+  qt/res/icons/lock_open.png \
+  qt/res/icons/overview.png \
+  qt/res/icons/ic-transaction-received.svg \
+  qt/res/icons/ic-transaction-mint.svg \
+  qt/res/icons/ic-transaction-sent.svg \
+  qt/res/icons/ic-transaction-staked.svg \
+  qt/polarisnetwork/res/img/bg-dashboard-banner.png \
+  qt/polarisnetwork/res/img/bg-multi-number-dark.svg \
+  qt/polarisnetwork/res/img/ic-check-locked.svg \
+  qt/polarisnetwork/res/img/ic-nav-address.svg \
+  qt/polarisnetwork/res/img/ic-update.svg \
+  qt/polarisnetwork/res/img/bg-multi-number.svg \
+  qt/polarisnetwork/res/img/ic-check-mint-off.svg \
+  qt/polarisnetwork/res/img/ic-nav-cold-staking.svg \
+  qt/polarisnetwork/res/img/ic-nav-cold-staking-active.svg \
+  qt/polarisnetwork/res/img/ic-nav-dashboard-active.svg \
+  qt/polarisnetwork/res/img/ic-wallet-status-locked.svg \
+  qt/polarisnetwork/res/img/bg-splash.svg \
+  qt/polarisnetwork/res/img/bg-splash.png \
+  qt/polarisnetwork/res/img/ic-check-mint.svg \
+  qt/polarisnetwork/res/img/ic-nav-dashboard-hover.svg \
+  qt/polarisnetwork/res/img/ic-wallet-status-staking.svg \
+  qt/polarisnetwork/res/img/ic-check-peers-off.svg \
+  qt/polarisnetwork/res/img/ic-nav-dashboard.svg \
+  qt/polarisnetwork/res/img/ic-wallet-status-unlocked.svg \
+  qt/polarisnetwork/res/img/ic-check-peers.svg \
+  qt/polarisnetwork/res/img/ic-nav-master-active.svg \
+  qt/polarisnetwork/res/img/ic-watch-password-white.svg \
+  qt/polarisnetwork/res/img/bg-welcome-container.jpg \
+  qt/polarisnetwork/res/img/bg-welcome-container.png \
+  qt/polarisnetwork/res/img/bg-welcome-container.svg \
+  qt/polarisnetwork/res/img/bg-welcome-container@2x.png \
+  qt/polarisnetwork/res/img/bg-welcome-container@3x.png \
+  qt/polarisnetwork/res/img/ic-check-staking-off.svg \
+  qt/polarisnetwork/res/img/ic-nav-master-hover.svg \
+  qt/polarisnetwork/res/img/ic-watch-password.svg \
+  qt/polarisnetwork/res/img/bg-welcome.jpg \
+  qt/polarisnetwork/res/img/bg-welcome.svg \
+  qt/polarisnetwork/res/img/bg-welcome@2x.jpg \
+  qt/polarisnetwork/res/img/bg-welcome@3x.jpg \
+  qt/polarisnetwork/res/img/bg-welcome.png \
+  qt/polarisnetwork/res/img/ic-check-staking.svg \
+  qt/polarisnetwork/res/img/ic-nav-master.svg \
+  qt/polarisnetwork/res/img/img-dashboard-banner.jpg \
+  qt/polarisnetwork/res/img/btn-radio-active.svg \
+  qt/polarisnetwork/res/img/ic-check-sync-off.svg \
+  qt/polarisnetwork/res/img/ic-nav-privacy-active.svg \
+  qt/polarisnetwork/res/img/img-empty-contacts.svg \
+  qt/polarisnetwork/res/img/btn-radio-off.svg \
+  qt/polarisnetwork/res/img/ic-check-sync.png \
+  qt/polarisnetwork/res/img/ic-nav-privacy-hover.svg \
+  qt/polarisnetwork/res/img/img-empty-dark-contacts.svg \
+  qt/polarisnetwork/res/img/ic-contact-arrow-down.svg \
+  qt/polarisnetwork/res/img/ic-contact-arrow-down-white.svg \
+  qt/polarisnetwork/res/img/ic-check-sync.svg \
+  qt/polarisnetwork/res/img/ic-check-faq.svg \
+  qt/polarisnetwork/res/img/ic-nav-privacy.svg \
+  qt/polarisnetwork/res/img/img-empty-dark-error.svg \
+  qt/polarisnetwork/res/img/ic-add-label.svg \
+  qt/polarisnetwork/res/img/ic-pending.svg \
+  qt/polarisnetwork/res/img/ic-check-theme-dark.svg \
+  qt/polarisnetwork/res/img/ic-nav-receive-active.svg \
+  qt/polarisnetwork/res/img/img-empty-dark-masternode.svg \
+  qt/polarisnetwork/res/img/ic-add-liliac.svg \
+  qt/polarisnetwork/res/img/ic-check-theme-light.svg \
+  qt/polarisnetwork/res/img/ic-nav-receive-hover.svg \
+  qt/polarisnetwork/res/img/img-empty-dark-multisend.svg \
+  qt/polarisnetwork/res/img/ic-add-purple.svg \
+  qt/polarisnetwork/res/img/ic-check-white.svg \
+  qt/polarisnetwork/res/img/ic-nav-receive.svg \
+  qt/polarisnetwork/res/img/img-empty-dark-peers.svg \
+  qt/polarisnetwork/res/img/ic-add.svg \
+  qt/polarisnetwork/res/img/ic-check.svg \
+  qt/polarisnetwork/res/img/ic-nav-send-active.svg \
+  qt/polarisnetwork/res/img/img-empty-dark-staking-off.svg \
+  qt/polarisnetwork/res/img/img-empty-dark-staking-on.svg \
+  qt/polarisnetwork/res/img/ic-address-book-grey.svg \
+  qt/polarisnetwork/res/img/ic-chevron-left.svg \
+  qt/polarisnetwork/res/img/ic-nav-send-hover.svg \
+  qt/polarisnetwork/res/img/img-empty-dark-transactions.svg \
+  qt/polarisnetwork/res/img/ic-address-book-white.svg \
+  qt/polarisnetwork/res/img/ic-chevron-right.svg \
+  qt/polarisnetwork/res/img/ic-nav-send.svg \
+  qt/polarisnetwork/res/img/img-empty-error.svg \
+  qt/polarisnetwork/res/img/ic-address-book.svg \
+  qt/polarisnetwork/res/img/ic-clear-liliac.svg \
+  qt/polarisnetwork/res/img/ic-nav-settings-active.svg \
+  qt/polarisnetwork/res/img/img-empty-masternode.svg \
+  qt/polarisnetwork/res/img/ic-address-send-white.svg \
+  qt/polarisnetwork/res/img/ic-clear-purple.svg \
+  qt/polarisnetwork/res/img/ic-nav-settings-hover.svg \
+  qt/polarisnetwork/res/img/img-empty-multisend.svg \
+  qt/polarisnetwork/res/img/ic-address-send.svg \
+  qt/polarisnetwork/res/img/ic-close-white.svg \
+  qt/polarisnetwork/res/img/ic-nav-settings.svg \
+  qt/polarisnetwork/res/img/img-empty-peers.svg \
+  qt/polarisnetwork/res/img/img-empty-privacy.svg \
+  qt/polarisnetwork/res/img/img-empty-privacy-dark.svg \
+  qt/polarisnetwork/res/img/ic-arrow-drop-down-white.svg \
+  qt/polarisnetwork/res/img/ic-close.svg \
+  qt/polarisnetwork/res/img/ic-radio-liliac-on.svg \
+  qt/polarisnetwork/res/img/img-empty-staking-off.svg \
+  qt/polarisnetwork/res/img/ic-arrow-drop-down.svg \
+  qt/polarisnetwork/res/img/ic-coin-pol.svg \
+  qt/polarisnetwork/res/img/ic-receive-off.svg \
+  qt/polarisnetwork/res/img/img-empty-staking-on.svg \
+  qt/polarisnetwork/res/img/ic-arrow-drop-up-white.svg \
+  qt/polarisnetwork/res/img/ic-coin-zpol.png \
+  qt/polarisnetwork/res/img/ic-receive-on.svg \
+  qt/polarisnetwork/res/img/img-empty-transactions.svg \
+  qt/polarisnetwork/res/img/ic-arrow-drop-up.svg \
+  qt/polarisnetwork/res/img/ic-coin-zpol.svg \
+  qt/polarisnetwork/res/img/ic-received.svg \
+  qt/polarisnetwork/res/img/img-logo-polarisnetwork.png \
+  qt/polarisnetwork/res/img/ic-arrow-drop-white-down.svg \
+  qt/polarisnetwork/res/img/ic-combo-box.svg \
+  qt/polarisnetwork/res/img/ic-send.svg \
+  qt/polarisnetwork/res/img/img-logo-polarisnetwork@2x.png \
+  qt/polarisnetwork/res/img/ic-arrow-purple-down.svg \
+  qt/polarisnetwork/res/img/ic-connect.svg \
+  qt/polarisnetwork/res/img/ic-submenu-lock.svg \
+  qt/polarisnetwork/res/img/img-logo-polarisnetwork@3x.png \
+  qt/polarisnetwork/res/img/img-logo-polarisnetwork.svg \
+  qt/polarisnetwork/res/img/ic-arrow-right-white.svg \
+  qt/polarisnetwork/res/img/ic-arrow-left-white.svg \
+  qt/polarisnetwork/res/img/ic-arrow-left.svg \
+  qt/polarisnetwork/res/img/ic-copy-liliac.svg \
+  qt/polarisnetwork/res/img/ic-submenu-staking.svg \
+  qt/polarisnetwork/res/img/img-nav-logo-polarisnetwork.png \
+  qt/polarisnetwork/res/img/ic-arrow-right.svg \
+  qt/polarisnetwork/res/img/ic-copy.svg \
+  qt/polarisnetwork/res/img/ic-copy-big.svg \
+  qt/polarisnetwork/res/img/ic-copy-big-white.svg \
+  qt/polarisnetwork/res/img/ic-submenu-unlock.svg \
+  qt/polarisnetwork/res/img/img-nav-logo.png \
+  qt/polarisnetwork/res/img/ic-arrow-white-left.svg \
+  qt/polarisnetwork/res/img/ic-exit.svg \
+  qt/polarisnetwork/res/img/ic-switch-liliac-on.svg \
+  qt/polarisnetwork/res/img/img-nav-logo.svg \
+  qt/polarisnetwork/res/img/ic-arrow-white-right.svg \
+  qt/polarisnetwork/res/img/ic-expand.svg \
+  qt/polarisnetwork/res/img/ic-switch-off.svg \
+  qt/polarisnetwork/res/img/img-qr-test-big.png \
+  qt/polarisnetwork/res/img/ic-check-active.svg \
+  qt/polarisnetwork/res/img/ic-folder.svg \
+  qt/polarisnetwork/res/img/ic-switch-on.svg \
+  qt/polarisnetwork/res/img/img-qr-test.png \
+  qt/polarisnetwork/res/img/ic-check-box.svg \
+  qt/polarisnetwork/res/img/ic-check-box-dark-active.svg \
+  qt/polarisnetwork/res/img/ic-check-box-indeterminate.svg \
+  qt/polarisnetwork/res/img/ic-check-box-liliac-indeterminate.svg \
+  qt/polarisnetwork/res/img/ic-label-liliac.svg \
+  qt/polarisnetwork/res/img/ic-transaction-warning.svg \
+  qt/polarisnetwork/res/img/ic-transaction-mint.svg \
+  qt/polarisnetwork/res/img/ic-transaction-mint-inactive.svg \
+  qt/polarisnetwork/res/img/ic-check-cold-staking.svg \
+  qt/polarisnetwork/res/img/ic-check-cold-staking-off.svg \
+  qt/polarisnetwork/res/img/ic-check-cold-staking-enabled.svg \
+  qt/polarisnetwork/res/img/dark/ic-transaction-cs-contract.svg \
+  qt/polarisnetwork/res/img/dark/ic-transaction-cs-contract-inactive.svg \
+  qt/polarisnetwork/res/img/img-qr.svg \
+  qt/polarisnetwork/res/img/ic-check-connect-off.svg \
+  qt/polarisnetwork/res/img/ic-check-tor-off.svg \
+  qt/polarisnetwork/res/img/ic-check-tor.svg \
+  qt/polarisnetwork/res/img/ic-label.svg \
+  qt/polarisnetwork/res/img/ic-transaction-received.svg \
+  qt/polarisnetwork/res/img/dark/ic-transaction-received.svg \
+  qt/polarisnetwork/res/img/dark/ic-transaction-warning.svg \
+  qt/polarisnetwork/res/img/dark/ic-transaction-mint.svg \
+  qt/polarisnetwork/res/img/dark/ic-transaction-mint-inactive.svg \
+  qt/polarisnetwork/res/img/ic-transaction-received-inactive.svg \
+  qt/polarisnetwork/res/img/dark/ic-transaction-received-inactive.svg \
+  qt/polarisnetwork/res/img/img-welcome-step1.png \
+  qt/polarisnetwork/res/img/ic-check-connect.svg \
+  qt/polarisnetwork/res/img/ic-menu-hover.svg \
+  qt/polarisnetwork/res/img/ic-transaction-sent.svg \
+  qt/polarisnetwork/res/img/ic-transaction-sent-inactive.svg \
+  qt/polarisnetwork/res/img/dark/ic-transaction-sent.svg \
+  qt/polarisnetwork/res/img/dark/ic-transaction-sent-inactive.svg \
+  qt/polarisnetwork/res/img/img-welcome-step2.png \
+  qt/polarisnetwork/res/img/ic-check-dark.svg \
+  qt/polarisnetwork/res/img/ic-mint.svg \
+  qt/polarisnetwork/res/img/ic-transaction-staked.svg \
+  qt/polarisnetwork/res/img/ic-transaction-staked-inactive.svg \
+  qt/polarisnetwork/res/img/dark/ic-transaction-staked.svg \
+  qt/polarisnetwork/res/img/dark/ic-transaction-staked-inactive.svg \
+  qt/polarisnetwork/res/img/img-welcome-step3.png \
+  qt/polarisnetwork/res/img/ic-check-liliac-on.svg \
+  qt/polarisnetwork/res/img/ic-nav-address-active.svg \
+  qt/polarisnetwork/res/img/ic-unlock-staking.svg \
+  qt/polarisnetwork/res/img/img-welcome-step4.png \
+  qt/polarisnetwork/res/img/ic-check-locked-off.svg \
+  qt/polarisnetwork/res/img/ic-nav-address-hover.svg \
+  qt/polarisnetwork/res/img/ic-update-liliac.svg \
+  qt/polarisnetwork/res/img/ic-arrow-drop-down-purple.svg \
+  qt/polarisnetwork/res/img/ic-arrow-drop-up-purple.svg \
+  qt/polarisnetwork/res/img/ic-check-liliac-indeterminate.svg \
+  qt/polarisnetwork/res/img/ic-check-box-liliac-indeterminate.svg \
+  qt/polarisnetwork/res/img/ic-transaction-stake-delegated.svg \
+  qt/polarisnetwork/res/img/ic-transaction-stake-delegated-inactive.svg \
+  qt/polarisnetwork/res/img/ic-transaction-stake-hot.svg \
+  qt/polarisnetwork/res/img/ic-transaction-stake-hot-inactive.svg \
+  qt/polarisnetwork/res/img/dark/ic-transaction-stake-hot.svg \
+  qt/polarisnetwork/res/img/dark/ic-transaction-stake-hot-inactive.svg \
+  qt/polarisnetwork/res/img/dark/ic-transaction-stake-delegated.svg \
+  qt/polarisnetwork/res/img/dark/ic-transaction-stake-delegated-inactive.svg \
+  qt/polarisnetwork/res/img/ic-transaction-cs-contract.svg \
+  qt/polarisnetwork/res/img/ic-transaction-cs-contract-inactive.svg \
+  qt/polarisnetwork/res/img/ic-check-box-indeterminate.svg \
+  qt/polarisnetwork/res/img/ani-loading-dark.gif \
+  qt/polarisnetwork/res/img/ani-loading.gif
+
+
+
+BITCOIN_QT_BASE_CPP = \
+  qt/bantablemodel.cpp \
+  qt/bitcoinaddressvalidator.cpp \
+  qt/bitcoinamountfield.cpp \
+  qt/polarisnetwork/polarisnetworkgui.cpp \
+  qt/bitcoinunits.cpp \
+  qt/clientmodel.cpp \
+  qt/csvmodelwriter.cpp \
+  qt/guiutil.cpp \
+  qt/intro.cpp \
+  qt/networkstyle.cpp \
+  qt/notificator.cpp \
+  qt/optionsdialog.cpp \
+  qt/optionsmodel.cpp \
+  qt/peertablemodel.cpp \
+  qt/platformstyle.cpp \
+  qt/qvalidatedlineedit.cpp \
+  qt/qvaluecombobox.cpp \
+  qt/rpcconsole.cpp \
+  qt/splashscreen.cpp \
+  qt/trafficgraphwidget.cpp \
+  qt/utilitydialog.cpp
+
+BITCOIN_QT_WINDOWS_CPP = qt/winshutdownmonitor.cpp
+
+BITCOIN_QT_WALLET_CPP = \
+  qt/addressbookpage.cpp \
+  qt/addresstablemodel.cpp \
+  qt/askpassphrasedialog.cpp \
+  qt/coincontroldialog.cpp \
+  qt/coincontroltreewidget.cpp \
+  qt/editaddressdialog.cpp \
+  qt/openuridialog.cpp \
+  qt/paymentrequestplus.cpp \
+  qt/paymentserver.cpp \
+  qt/recentrequeststablemodel.cpp \
+  qt/transactiondesc.cpp \
+  qt/transactionfilterproxy.cpp \
+  qt/transactionrecord.cpp \
+  qt/transactiontablemodel.cpp \
+  qt/walletmodel.cpp \
+  qt/walletmodeltransaction.cpp \
+  qt/polarisnetwork/loadingdialog.cpp \
+  qt/zpolcontroldialog.cpp \
+  qt/polarisnetwork/pwidget.cpp \
+  qt/polarisnetwork/focuseddialog.cpp \
+  qt/polarisnetwork/guitransactionsutils.cpp \
+  qt/polarisnetwork/snackbar.cpp \
+  qt/polarisnetwork/navmenuwidget.cpp \
+  qt/polarisnetwork/lockunlock.cpp \
+  qt/polarisnetwork/receivedialog.cpp \
+  qt/polarisnetwork/furabstractlistitemdelegate.cpp \
+  qt/polarisnetwork/txviewholder.cpp \
+  qt/polarisnetwork/qtutils.cpp \
+  qt/polarisnetwork/expandablebutton.cpp \
+  qt/polarisnetwork/topbar.cpp \
+  qt/polarisnetwork/txrow.cpp \
+  qt/polarisnetwork/addressholder.cpp \
+  qt/polarisnetwork/addressfilterproxymodel.cpp \
+  qt/polarisnetwork/dashboardwidget.cpp \
+  qt/polarisnetwork/addresslabelrow.cpp \
+  qt/polarisnetwork/contactdropdownrow.cpp \
+  qt/polarisnetwork/contactsdropdown.cpp \
+  qt/polarisnetwork/optionbutton.cpp \
+  qt/polarisnetwork/mninfodialog.cpp \
+  qt/polarisnetwork/coldstakingmodel.cpp \
+  qt/polarisnetwork/mnmodel.cpp \
+  qt/polarisnetwork/masternodewizarddialog.cpp \
+  qt/polarisnetwork/mnrow.cpp \
+  qt/polarisnetwork/masternodeswidget.cpp \
+  qt/polarisnetwork/myaddressrow.cpp \
+  qt/polarisnetwork/csrow.cpp \
+  qt/polarisnetwork/sendchangeaddressdialog.cpp \
+  qt/polarisnetwork/sendconfirmdialog.cpp \
+  qt/polarisnetwork/sendcustomfeedialog.cpp \
+  qt/polarisnetwork/sendchangeaddressdialog.cpp \
+  qt/polarisnetwork/sendmultirow.cpp \
+  qt/polarisnetwork/send.cpp \
+  qt/polarisnetwork/addnewaddressdialog.cpp \
+  qt/polarisnetwork/addnewcontactdialog.cpp \
+  qt/polarisnetwork/requestdialog.cpp \
+  qt/polarisnetwork/receivewidget.cpp \
+  qt/polarisnetwork/tooltipmenu.cpp \
+  qt/polarisnetwork/addresseswidget.cpp \
+  qt/polarisnetwork/defaultdialog.cpp \
+  qt/polarisnetwork/privacywidget.cpp \
+  qt/polarisnetwork/coldstakingwidget.cpp \
+  qt/polarisnetwork/settings/settingsbackupwallet.cpp \
+  qt/polarisnetwork/settings/settingsexportcsv.cpp \
+  qt/polarisnetwork/settings/settingsbittoolwidget.cpp \
+  qt/polarisnetwork/settings/settingsconsolewidget.cpp \
+  qt/polarisnetwork/settings/settingsdisplayoptionswidget.cpp \
+  qt/polarisnetwork/settings/settingsfaqwidget.cpp \
+  qt/polarisnetwork/settings/settingsinformationwidget.cpp \
+  qt/polarisnetwork/settings/settingsmainoptionswidget.cpp \
+  qt/polarisnetwork/settings/settingsmultisenddialog.cpp \
+  qt/polarisnetwork/settings/settingsmultisendwidget.cpp \
+  qt/polarisnetwork/settings/settingssignmessagewidgets.cpp \
+  qt/polarisnetwork/settings/settingswalletoptionswidget.cpp \
+  qt/polarisnetwork/settings/settingswalletrepairwidget.cpp \
+  qt/polarisnetwork/settings/settingswidget.cpp \
+  qt/polarisnetwork/welcomecontentwidget.cpp \
+  qt/polarisnetwork/splash.cpp
+
+
+BITCOIN_QT_CPP = $(BITCOIN_QT_BASE_CPP)
+if TARGET_WINDOWS
+BITCOIN_QT_CPP += $(BITCOIN_QT_WINDOWS_CPP)
+endif
+if ENABLE_WALLET
+BITCOIN_QT_CPP += $(BITCOIN_QT_WALLET_CPP)
+endif
+
+RES_IMAGES = \
+  qt/res/images/about.png \
+  qt/res/images/splash.png \
+  qt/res/images/splash_testnet.png \
+  qt/res/images/splash_regtest.png
+
+RES_CSS = \
+  qt/res/css/default.css \
+  qt/polarisnetwork/res/css/style_dark.css \
+  qt/polarisnetwork/res/css/style_light.css
+
+BITCOIN_RC = qt/res/polarisnetwork-qt-res.rc
+
+BITCOIN_QT_INCLUDES = -I$(builddir)/qt -I$(srcdir)/qt -I$(srcdir)/qt/forms \
+  -I$(builddir)/qt/forms -DQT_NO_KEYWORDS
+
+qt_libbitcoinqt_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
+  $(QT_INCLUDES) $(QT_DBUS_INCLUDES) $(PROTOBUF_CFLAGS) $(QR_CFLAGS) $(SVG_CFLAGS) $(CHARTS_CFLAGS)
+qt_libbitcoinqt_a_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
+qt_libbitcoinqt_a_OBJCXXFLAGS = $(AM_OBJCXXFLAGS) $(QT_PIE_FLAGS)
+
+qt_libbitcoinqt_a_SOURCES = $(BITCOIN_QT_CPP) $(BITCOIN_QT_H) $(QT_FORMS_UI) \
+  $(QT_QRC) $(QT_QRC_LOCALE) $(QT_TS) $(PROTOBUF_PROTO) $(RES_ICONS) $(RES_IMAGES) $(RES_CSS)
+
+nodist_qt_libbitcoinqt_a_SOURCES = $(QT_MOC_CPP) $(QT_MOC) $(PROTOBUF_CC) \
+  $(PROTOBUF_H) $(QT_QRC_CPP) $(QT_QRC_LOCALE_CPP)
+
+# forms/foo.h -> forms/ui_foo.h
+QT_FORMS_H=$(join $(dir $(QT_FORMS_UI)),$(addprefix ui_, $(notdir $(QT_FORMS_UI:.ui=.h))))
+
+# Most files will depend on the forms and moc files as includes. Generate them
+# before anything else.
+$(QT_MOC): $(QT_FORMS_H)
+$(qt_libbitcoinqt_a_OBJECTS) $(qt_polarisnetwork_qt_OBJECTS) : | $(QT_MOC)
+
+#Generating these with a half-written protobuf header leads to wacky results.
+#This makes sure it's done.
+$(QT_MOC): $(PROTOBUF_H)
+$(QT_MOC_CPP): $(PROTOBUF_H)
+
+# polarisnetwork-qt binary #
+qt_polarisnetwork_qt_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
+  $(QT_INCLUDES) $(PROTOBUF_CFLAGS) $(QR_CFLAGS) $(SVG_CFLAGS) $(CHARTS_CFLAGS)
+qt_polarisnetwork_qt_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
+
+qt_polarisnetwork_qt_SOURCES = qt/polarisnetwork.cpp
+if TARGET_DARWIN
+  qt_polarisnetwork_qt_SOURCES += $(BITCOIN_MM)
+endif
+if TARGET_WINDOWS
+  qt_polarisnetwork_qt_SOURCES += $(BITCOIN_RC)
+endif
+qt_polarisnetwork_qt_LDADD = qt/libbitcoinqt.a $(LIBBITCOIN_SERVER)
+if ENABLE_WALLET
+qt_polarisnetwork_qt_LDADD += $(LIBBITCOIN_UTIL) $(LIBBITCOIN_WALLET)
+endif
+if ENABLE_ZMQ
+qt_polarisnetwork_qt_LDADD += $(LIBBITCOIN_ZMQ) $(ZMQ_LIBS)
+endif
+qt_polarisnetwork_qt_LDADD += $(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) $(LIBBITCOIN_UTIL) $(LIBBITCOIN_CRYPTO) $(LIBUNIVALUE) $(LIBBITCOIN_ZEROCOIN) $(LIBLEVELDB) $(LIBLEVELDB_SSE42) $(LIBMEMENV) \
+  $(BOOST_LIBS) $(QT_LIBS) $(QT_DBUS_LIBS) $(QR_LIBS) $(PROTOBUF_LIBS) $(SVG_LIBS) $(CHARTS_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(LIBSECP256K1) \
+  $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
+qt_polarisnetwork_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+qt_polarisnetwork_qt_LIBTOOLFLAGS = $(AM_LIBTOOLFLAGS) --tag CXX
+
+#locale/foo.ts -> locale/foo.qm
+QT_QM=$(QT_TS:.ts=.qm)
+
+SECONDARY: $(QT_QM)
+
+$(srcdir)/qt/polarisnetworkstrings.cpp: $(libbitcoin_server_a_SOURCES) $(libbitcoin_wallet_a_SOURCES) $(libbitcoin_common_a_SOURCES) $(libbitcoin_zmq_a_SOURCES) $(libbitcoin_util_a_SOURCES)
+	@test -n $(XGETTEXT) || echo "xgettext is required for updating translations"
+	$(AM_V_GEN) cd $(srcdir); XGETTEXT=$(XGETTEXT) PACKAGE_NAME="$(PACKAGE_NAME)" $(PYTHON) ../share/qt/extract_strings_qt.py $^
+
+translate: $(srcdir)/qt/polarisnetworkstrings.cpp $(QT_FORMS_UI) $(QT_FORMS_UI) $(BITCOIN_QT_BASE_CPP) qt/polarisnetwork.cpp $(BITCOIN_QT_WINDOWS_CPP) $(BITCOIN_QT_WALLET_CPP) $(BITCOIN_QT_H) $(BITCOIN_MM)
+	@test -n $(LUPDATE) || echo "lupdate is required for updating translations"
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LUPDATE) $^ -locations relative -no-obsolete -ts $(srcdir)/qt/locale/polarisnetwork_en.ts
+
+$(QT_QRC_LOCALE_CPP): $(QT_QRC_LOCALE) $(QT_QM)
+	@test -f $(RCC)
+	@cp -f $< $(@D)/temp_$(<F)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name polarisnetwork_locale $(@D)/temp_$(<F) | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+	@rm $(@D)/temp_$(<F)
+
+$(QT_QRC_CPP): $(QT_QRC) $(QT_FORMS_H) $(RES_ICONS) $(RES_IMAGES) $(RES_CSS) $(PROTOBUF_H)
+	@test -f $(RCC)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name polarisnetwork $< | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+
+CLEAN_QT = $(nodist_qt_libbitcoinqt_a_SOURCES) $(QT_QM) $(QT_FORMS_H) qt/*.gcda qt/*.gcno qt/temp_polarisnetwork_locale.qrc
+
+CLEANFILES += $(CLEAN_QT)
+
+polarisnetwork_qt_clean: FORCE
+	rm -f $(CLEAN_QT) $(qt_libbitcoinqt_a_OBJECTS) $(qt_polarisnetwork_qt_OBJECTS) qt/polarisnetwork-qt$(EXEEXT) $(LIBBITCOINQT)
+
+polarisnetwork_qt : qt/polarisnetwork-qt$(EXEEXT)
+
+ui_%.h: %.ui
+	@test -f $(UIC)
+	@$(MKDIR_P) $(@D)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(UIC) -o $@ $< || (echo "Error creating $@"; false)
+
+%.moc: %.cpp
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(MOC) $(DEFAULT_INCLUDES) $(QT_INCLUDES) $(MOC_DEFS) $< | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+
+moc_%.cpp: %.h
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(MOC) $(DEFAULT_INCLUDES) $(QT_INCLUDES) $(MOC_DEFS) $< | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+
+%.qm: %.ts
+	@test -f $(LRELEASE)
+	@$(MKDIR_P) $(@D)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LRELEASE) -silent $< -qm $@
